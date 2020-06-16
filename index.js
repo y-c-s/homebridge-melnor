@@ -1,72 +1,62 @@
-module.exports = function (homebridge) {
-  const Service, Characteristic;
-  Service = homebridge.hap.Service;
-  Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory("switch-plugin", "HoseValve", myValve);
+let hap: HAP;
+
+/*
+ * Initializer function called when the plugin is loaded.
+ */
+export = (api: API) => {
+  hap = api.hap;
+  api.registerAccessory("WaterValve", WaterValve);
 };
 
-myValve.prototype = {
-  getServices: function () {
-    let informationService = new Service.AccessoryInformation();
-    informationService
-      .setCharacteristic(Characteristic.Manufacturer, "Melnor")
-      .setCharacteristic(Characteristic.Model, "RainCloud")
-      .setCharacteristic(Characteristic.SerialNumber, "123-456-789");
+class WaterValve implements AccessoryPlugin {
 
-    let switchService = new Service.Switch("Rain Cloud");
-    switchService
-      .getCharacteristic(Characteristic.On)
-      .on('get', this.getSwitchOnCharacteristic.bind(this))
-      .on('set', this.setSwitchOnCharacteristic.bind(this));
+  private readonly log: Logging;
+  private readonly name: string;
+  private switchOn = false;
 
-    this.informationService = informationService;
-    this.switchService = switchService;
-    return [informationService, switchService];
+  private readonly switchService: Service;
+  private readonly informationService: Service;
+
+  constructor(log: Logging, config: AccessoryConfig, api: API) {
+    this.log = log;
+    this.name = config.name;
+
+    this.switchService = new hap.Service.Switch(this.name);
+    this.switchService.getCharacteristic(hap.Characteristic.On)
+      .on(CharacteristicEventTypes.GET, (callback: CharacteristicGetCallback) => {
+        log.info("Current state of the switch was returned: " + (this.switchOn? "ON": "OFF"));
+        callback(undefined, this.switchOn);
+      })
+      .on(CharacteristicEventTypes.SET, (value: CharacteristicValue, callback: CharacteristicSetCallback) => {
+        this.switchOn = value as boolean;
+        log.info("Switch state was set to: " + (this.switchOn? "ON": "OFF"));
+        callback();
+      });
+
+    this.informationService = new hap.Service.AccessoryInformation()
+      .setCharacteristic(hap.Characteristic.Manufacturer, "Melnor")
+      .setCharacteristic(hap.Characteristic.Model, "RainCloud");
+
+    log.info("Switch finished initializing!");
   }
-};
 
-const request = require('request');
-const url = require('url');
+  /*
+   * This method is optional to implement. It is called when HomeKit ask to identify the accessory.
+   * Typical this only ever happens at the pairing process.
+   */
+  identify(): void {
+    this.log("Identify!");
+  }
 
-function myValve(log, config) {
-  this.log = log;
-  this.getUrl = url.parse(config['getUrl']);
-  this.postUrl = url.parse(config['postUrl']);
+  /*
+   * This method is called directly after creation of this instance.
+   * It should return all services which should be added to the accessory.
+   */
+  getServices(): Service[] {
+    return [
+      this.informationService,
+      this.switchService,
+    ];
+  }
+
 }
-
-myValve.prototype = {
-
-  getSwitchOnCharacteristic: function (next) {
-    const me = this;
-    request({
-      url: me.getUrl,
-      method: 'GET',
-    },
-    function (error, response, body) {
-      if (error) {
-        me.log('STATUS: ' + response.statusCode);
-        me.log(error.message);
-        return next(error);
-      }
-      return next(null, body.currentState);
-    });
-  },
-
-  setSwitchOnCharacteristic: function (on, next) {
-    const me = this;
-    request({
-      url: me.postUrl,
-      body: {'targetState': on},
-      method: 'POST',
-      headers: {'Content-type': 'application/json'}
-    },
-    function (error, response) {
-      if (error) {
-        me.log('STATUS: ' + response.statusCode);
-        me.log(error.message);
-        return next(error);
-      }
-      return next();
-    });
-  }
-};

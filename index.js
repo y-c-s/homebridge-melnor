@@ -1,6 +1,5 @@
-const Service, Characteristic;
-
 module.exports = function (homebridge) {
+  const Service, Characteristic;
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   homebridge.registerAccessory("switch-plugin", "HoseValve", myValve);

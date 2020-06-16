@@ -1,0 +1,5 @@
+{
+  "accessory": "HoseValve",
+  "getUrl": "http://192.168.0.10/api/status",
+  "postUrl": "http://192.168.0.10/api/order"
+}

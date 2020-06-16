@@ -1,3 +1,17 @@
+import {
+  AccessoryConfig,
+  AccessoryPlugin,
+  API,
+  CharacteristicEventTypes,
+  CharacteristicGetCallback,
+  CharacteristicSetCallback,
+  CharacteristicValue,
+  HAP,
+  Logging,
+  Service
+} from "homebridge";
+
+let hap: HAP;
 
 /*
  * Initializer function called when the plugin is loaded.

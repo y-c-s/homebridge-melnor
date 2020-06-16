@@ -1,7 +1,7 @@
 {
   "name": "homebridge-melnor",
   "description": "Melnor RainCloud plugin for homebridge: https://github.com/y-c-s/homebridge-melnor",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "git://github.com/y-c-s/homebridge-melnor.git"
@@ -15,7 +15,7 @@
     "node": ">=0.12.0",
     "homebridge": ">=0.2.5"
   },
-  "dependencies": {
+  "devDependencies": {
     "homebridge": "^1.0.4"
   },
   "bugs": {

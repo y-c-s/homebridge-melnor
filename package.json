@@ -18,6 +18,14 @@
   "dependencies": {
     "request": "2.49.x",
     "xml2js": "0.4.x"
-  }
-
+  },
+  "bugs": {
+    "url": "https://github.com/y-c-s/melnor/issues"
+  },
+  "homepage": "https://github.com/y-c-s/melnor#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yann Sommer"
 }

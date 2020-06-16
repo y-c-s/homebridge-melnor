@@ -1,4 +1,3 @@
-let hap: HAP;
 
 /*
  * Initializer function called when the plugin is loaded.

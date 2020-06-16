@@ -1,10 +1,10 @@
 {
   "name": "homebridge-melnor",
-  "description": "Melnor RainCloud plugin for homebridge: https://github.com/y-c-s/melnor",
+  "description": "Melnor RainCloud plugin for homebridge: https://github.com/y-c-s/homebridge-melnor",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/y-c-s/melnor.git"
+    "url": "git://github.com/y-c-s/homebridge-melnor.git"
   },
   "license": "ISC",
   "preferGlobal": true,
@@ -17,9 +17,9 @@
   },
   "dependencies": {},
   "bugs": {
-    "url": "https://github.com/y-c-s/melnor/issues"
+    "url": "https://github.com/y-c-s/homebridge-melnor/issues"
   },
-  "homepage": "https://github.com/y-c-s/melnor#readme",
+  "homepage": "https://github.com/y-c-s/homebridge-melnor#readme",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

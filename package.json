@@ -1,0 +1,23 @@
+{
+  "name": "homebridge-melnor",
+  "description": "Melnor RainCloud plugin for homebridge: https://github.com/y-c-s/melnor",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/y-c-s/melnor.git"
+  },
+  "license": "ISC",
+  "preferGlobal": true,
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.5"
+  },
+  "dependencies": {
+    "request": "2.49.x",
+    "xml2js": "0.4.x"
+  }
+
+}

@@ -15,10 +15,7 @@
     "node": ">=0.12.0",
     "homebridge": ">=0.2.5"
   },
-  "dependencies": {
-    "request": "2.49.x",
-    "xml2js": "0.4.x"
-  },
+  "dependencies": {},
   "bugs": {
     "url": "https://github.com/y-c-s/melnor/issues"
   },
